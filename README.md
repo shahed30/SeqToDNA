@@ -1,2 +1,2 @@
 # RNA2rDNA
-This is the workflow used for recontruction of rDNA and target contigs from high-throughput sequencing data using reference sequences
+This is the workflow used for the reconstruction of rDNA and target contigs from high-throughput sequencing data using reference sequences
