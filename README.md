@@ -19,7 +19,7 @@ This is the workflow used for the reconstruction of rDNA and target contigs from
 
 #### Step 1
 ##### Indexing the reference (Change reference file names)
-`hisat2-build ciliate_ref.fasta spirostomum_index`       #(hisat2-build reference.fasta name_index)  
+`hisat2-build ciliate_ref.fasta spirostomum_index`       ***#(hisat2-build reference.fasta name_index)  
 
 `bwa index -a bwtsw ciliate_ref.fasta`  
 
@@ -30,7 +30,7 @@ This is the workflow used for the reconstruction of rDNA and target contigs from
 
 #### Step 2
 ##### Run mapping (Change input file names)
-`hisat2 -x spirostomum_index -1 RAW_trimmed__FPE.fastq.gz -2 RAW_trimmed__RPE.fastq.gz -S sample.sam`    #(hisat2 -x name_index -1 FPE.fastq.gz -2 RPE.fastq.gz -S mapped.sam)  
+`hisat2 -x spirostomum_index -1 RAW_trimmed__FPE.fastq.gz -2 RAW_trimmed__RPE.fastq.gz -S sample.sam`    ***#(hisat2 -x name_index -1 FPE.fastq.gz -2 RPE.fastq.gz -S mapped.sam)  
 
 `bwa mem ciliate_ref.fasta RAW_trimmed__FPE.fastq.gz RAW_trimmed__RPE.fastq.gz > sample.sam`  
 
@@ -41,27 +41,27 @@ This is the workflow used for the reconstruction of rDNA and target contigs from
 
 #### Step 3
 ##### Convert sam to bam
-`samtools view -bS sample.sam > sample.bam`       #(samtools view -bS mapped.sam > mapped.bam)  
+`samtools view -bS sample.sam > sample.bam`       ***#(samtools view -bS mapped.sam > mapped.bam)  
 
 
 #### Step 4
 ##### Fixing 
-`samtools fixmate -O bam sample.bam  fixmate_sample.bam`     #(samtools fixmate -O bam in_file out_file)  
+`samtools fixmate -O bam sample.bam  fixmate_sample.bam`     ***#(samtools fixmate -O bam in_file out_file)  
 
 
 #### Step 5
 ##### Sorting 
-`samtools sort -O bam -o sorted_sample.bam fixmate_sample.bam`     #(samtools sort -O bam -o out_file in_file)  
+`samtools sort -O bam -o sorted_sample.bam fixmate_sample.bam`     ***#(samtools sort -O bam -o out_file in_file)  
 
 
 #### Step 6
 ##### Remove duplicates
-`sambamba markdup -r sorted_sample.bam sorted_sample.dedup.bam`      #(sambamba markdup -r in_file out_file)  
+`sambamba markdup -r sorted_sample.bam sorted_sample.dedup.bam`      ***#(sambamba markdup -r in_file out_file)  
 
 
 #### Step 7
 ##### Extract mapped reads only with q40
-`samtools view -h -b -q 40 sorted_sample.dedup.bam > sorted_sample.dedup.q40.bam`  #(samtools view -h -b -q 40 in_file > out_file)  
+`samtools view -h -b -q 40 sorted_sample.dedup.bam > sorted_sample.dedup.q40.bam`  ***#(samtools view -h -b -q 40 in_file > out_file)  
 
 
 #### Step 8
