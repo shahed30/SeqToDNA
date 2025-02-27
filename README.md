@@ -19,7 +19,7 @@ This is the workflow used for the reconstruction of rDNA and target contigs from
 
 #### Step 1
 ##### Indexing the reference (Change reference file names)
-`hisat2-build ciliate_ref.fasta spirostomum_index`      #`hisat2-build reference.fasta name_index`
+###### `hisat2-build ciliate_ref.fasta spirostomum_index`      hisat2-build reference.fasta name_index
 bwa index -a bwtsw ciliate_ref.fasta                 
 bowtie2-build ciliate_ref.fasta reference_index
 bbmap.sh ref=ciliate_ref.fasta
