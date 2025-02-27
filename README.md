@@ -19,7 +19,7 @@ This is the workflow used for the reconstruction of rDNA and target contigs from
 
 #### Step 1
 ##### Indexing the reference (Change reference file names)
-hisat2-build ciliate_ref.fasta spirostomum_index      #hisat2-build reference.fasta name_index
+`hisat2-build ciliate_ref.fasta spirostomum_index`      #`hisat2-build reference.fasta name_index`
 bwa index -a bwtsw ciliate_ref.fasta                 
 bowtie2-build ciliate_ref.fasta reference_index
 bbmap.sh ref=ciliate_ref.fasta
@@ -35,38 +35,38 @@ bbmap.sh in=/file_location/RAW_trimmed__FPE.fastq.gz in2=/file_location/RAW_trim
 
 #### Step 3
 ##### Convert sam to bam
-#samtools view -bS sample.sam > sample.bam       #samtools view -bS mapped.sam > mapped.bam
+samtools view -bS sample.sam > sample.bam       #samtools view -bS mapped.sam > mapped.bam
 
 #### Step 4
 ##### Fixing 
-#samtools fixmate -O bam sample.bam  fixmate_sample.bam     #samtools fixmate -O bam in_file out_file
+samtools fixmate -O bam sample.bam  fixmate_sample.bam     #samtools fixmate -O bam in_file out_file
 
 #### Step 5
 ##### Sorting 
-#samtools sort -O bam -o sorted_sample.bam fixmate_sample.bam     #samtools sort -O bam -o out_file in_file
+samtools sort -O bam -o sorted_sample.bam fixmate_sample.bam     #samtools sort -O bam -o out_file in_file
 
 #### Step 6
 ##### Remove duplicates
-#sambamba markdup -r sorted_sample.bam sorted_sample.dedup.bam      #sambamba markdup -r in_file out_file
+sambamba markdup -r sorted_sample.bam sorted_sample.dedup.bam      #sambamba markdup -r in_file out_file
 
 #### Step 7
 ##### Extract mapped reads only with q40
-#samtools view -h -b -q 40 sorted_sample.dedup.bam > sorted_sample.dedup.q40.bam  #samtools view -h -b -q 40 in_file > out_file
+samtools view -h -b -q 40 sorted_sample.dedup.bam > sorted_sample.dedup.q40.bam  #samtools view -h -b -q 40 in_file > out_file
 
 #### Step 8
 ##### Extract mapped reads only with q20
-#samtools view -h -b -q 20 sorted_sample.dedup.bam > sorted_sample.dedup.q20.bam
+samtools view -h -b -q 20 sorted_sample.dedup.bam > sorted_sample.dedup.q20.bam
 
 #### Step 9
 ##### Extract mapped reads only
-#samtools view -h -F 4 -b sorted_sample.dedup.bam > onlymapped_sample.dedup.bam
+samtools view -h -F 4 -b sorted_sample.dedup.bam > onlymapped_sample.dedup.bam
 
 
 #### Step 10
 ##### fastq to fasta
-#bedtools bamtofastq -i onlymapped_sample.dedup.bam -fq sample.fastq
-bedtools bamtofastq -i onlymapped_sample.dedup.bam -fq sample_OM.fastq
 bedtools bamtofastq -i sorted_sample.dedup.q20.bam -fq sample_q20.fastq
+bedtools bamtofastq -i sorted_sample.dedup.q20.bam -fq sample_q20.fastq
+bedtools bamtofastq -i onlymapped_sample.dedup.bam -fq sample_OM.fastq
 
 #### Step 11
 ##### spades assembly
